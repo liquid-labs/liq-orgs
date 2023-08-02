@@ -1,0 +1,17 @@
+{
+  "name": "@liquid-labs/liq-orgs",
+  "version": "1.0.0-alpha.0",
+  "description": "",
+  "main": "dist/liq-orgs.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Zane Rockenbaugh <zane@liquid-labs.com>",
+  "license": "UNLICENSED",
+  "repository": "git+ssh://git@github.com/liquid-labs/liq-orgs.git",
+  "bugs": {
+    "url": "https://github.com/liquid-labs/liq-orgs/issues"
+  },
+  "homepage": "https://github.com/liquid-labs/liq-orgs#readme"
+}
