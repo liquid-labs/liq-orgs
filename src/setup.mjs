@@ -7,6 +7,7 @@ const setup = ({ app, model, reporter }) => {
 const setupModel = ({ app, model }) => {
   app.liq.setupMethods.push({
     name : 'load orgs',
+    deps : ['load playground'],
     func : loadOrgs
   })
 }
