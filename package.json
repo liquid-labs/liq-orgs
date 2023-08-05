@@ -4,7 +4,13 @@
   "description": "",
   "main": "dist/liq-orgs.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "make",
+    "lint": "make lint",
+    "lint:fix": "make lint-fix",
+    "test": "make test",
+    "preversion": "make qa",
+    "prepack": "make build",
+    "qa": "make qa"
   },
   "engines": {
     "node": ">=18.0.0"
