@@ -4,7 +4,16 @@
   "description": "",
   "main": "dist/liq-orgs.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "make",
+    "lint": "make lint",
+    "lint:fix": "make lint-fix",
+    "test": "make test",
+    "preversion": "make qa",
+    "prepack": "make build",
+    "qa": "make qa"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "keywords": [],
   "author": "Zane Rockenbaugh <zane@liquid-labs.com>",
@@ -13,5 +22,19 @@
   "bugs": {
     "url": "https://github.com/liquid-labs/liq-orgs/issues"
   },
-  "homepage": "https://github.com/liquid-labs/liq-orgs#readme"
+  "homepage": "https://github.com/liquid-labs/liq-orgs#readme",
+  "devDependencies": {
+    "@liquid-labs/catalyst-scripts-node-project": "^1.0.0-alpha.21",
+    "@liquid-labs/liq-core": "^1.0.0-alpha.20",
+    "@liquid-labs/liq-test-lib": "^1.0.0-alpha.3",
+    "@liquid-labs/shell-toolkit": "^1.0.0-alpha.7"
+  },
+  "dependencies": {
+    "@liquid-labs/dependency-runner": "^1.0.0-alpha.8",
+    "@liquid-labs/liq-defaults": "^1.0.0-alpha.2",
+    "@liquid-labs/liq-handlers-lib": "^1.0.0-alpha.17",
+    "@liquid-labs/liq-playground": "^1.0.0-alpha.1",
+    "@liquid-labs/orgs-model": "^1.0.0-beta.108",
+    "@liquid-labs/resource-model": "^1.0.0-alpha.9"
+  }
 }
