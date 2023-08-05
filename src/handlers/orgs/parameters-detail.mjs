@@ -7,7 +7,7 @@ const path = ['orgs', ':orgKey', 'parameters', ':parameterKey', 'detail']
 const parameters = []
 
 const func = ({ app, model, reporter }) => {
-  app.liq.pathResolvers.parameterKey = {
+  app.ext.pathResolvers.parameterKey = {
     optionsFetcher : ({ orgKey }) => {
       const org = model.orgs[orgKey]
       const parameters = listParameters(org)

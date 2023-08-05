@@ -16,7 +16,6 @@ const terminalFormatter = ({ data: orgs }) => orgs.map((o) => `${o.commonName} (
 const textFormatter = ({ data: orgs }) => orgs.map((o) => `${o.commonName} (${o.key})`).join('\n')
 
 const func = ({ model, reporter }) => (req, res) => {
-  console.log('org list model:', model) // DEBUG
   const orgs = Object.values(model.orgs)
 
   formatOutput({

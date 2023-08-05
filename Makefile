@@ -120,7 +120,7 @@ TEST_TARGETS+=$(UNIT_TEST_PASS_MARKER) $(UNIT_TEST_REPORT)
 # lint rules
 LINT_REPORT:=$(QA)/lint.txt
 LINT_PASS_MARKER:=$(QA)/.lint.passed
-$(LINT_PASS_MARKER) $(LINT_REPORT): $(CATALYST_JS_LIB_ALL_FILES)
+$(LINT_PASS_MARKER) $(LINT_REPORT): $(CATALYST_JS_ALL_FILES_SRC)
 	@mkdir -p $(dir $@)
 	@echo -n 'Test git rev: ' > $(LINT_REPORT)
 	@git rev-parse HEAD >> $(LINT_REPORT)

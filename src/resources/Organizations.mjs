@@ -14,7 +14,6 @@ const Organizations = class extends Model {
   constructor({ model, reporter = console }) {
     super({ items : [] })
 
-    console.error('Organizations model:', model) // DEBUG
     this.#model = model
     this.load({ reporter })
   }

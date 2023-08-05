@@ -1,5 +1,4 @@
 /* global afterAll beforeAll describe expect test */
-import * as fs from 'node:fs'
 import * as fsPath from 'node:path'
 
 import { appInit, initModel, Reporter } from '@liquid-labs/liq-core'
@@ -19,7 +18,7 @@ describe('model', () => {
     describe('initialization', () => {
       let cache, model
 
-      beforeAll(async () => {
+      beforeAll(async() => {
         const playgroundPluginPath = tryExec('npm explore @liquid-labs/liq-playground -- pwd').stdout.trim()
 
         process.env.LIQ_PLAYGROUND = playgroundSimplePath
