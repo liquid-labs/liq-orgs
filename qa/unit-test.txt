@@ -1,0 +1,19 @@
+Test git rev: e046ae2615a5a711569e73e3298136063f9a0360
+PASS resources/test/model.test.js
+  model
+    playground
+      initialization
+        ✓ ignores files at the org level (1 ms)
+        ✓ ignores org-level directories marked with '.liq-ignore' (1 ms)
+        ✓ loads all orgs
+
+----------|---------|----------|---------|---------|-------------------
+File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+----------|---------|----------|---------|---------|-------------------
+All files |       0 |        0 |       0 |       0 |                   
+----------|---------|----------|---------|---------|-------------------
+Test Suites: 1 passed, 1 total
+Tests:       3 passed, 3 total
+Snapshots:   0 total
+Time:        0.563 s, estimated 1 s
+Ran all test suites.
