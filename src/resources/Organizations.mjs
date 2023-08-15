@@ -80,7 +80,7 @@ const Organizations = class extends Model {
     }
 
     if (Object.keys(this).length === 0) {
-      const msg = 'No valid organizations were loaded; bailing out.'
+      const msg = `No valid organizations were loaded from playground '${LIQ_PLAYGROUND()}' (org dirs: ${this.#model.playground.orgDirs()?.join(', ')}); bailing out.`
       reporter.error(msg)
       throw new Error(msg)
     }
