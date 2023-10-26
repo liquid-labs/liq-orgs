@@ -6,7 +6,7 @@ const setup = ({ app, reporter }) => {
   app.ext.setupMethods.push({
     name : 'prepare org dependencies',
     deps : ['!'],
-    func : ({ app }) => { app.ext._liqOrgs = { orgSetupMethods : [] }}
+    func : ({ app }) => { app.ext._liqOrgs = { orgSetupMethods : [] } }
   })
   app.ext.setupMethods.push({
     name : 'load orgs',
@@ -46,8 +46,8 @@ const processOrgSetup = async({ app, cache, reporter }) => {
       const orgArgs = { org, orgKey : org.key }
       const mergedEntry = Object.assign({ args : orgArgs }, orgSetupMethod)
       orgDepRunner.enqueue(mergedEntry)
-     }
-   }
+    }
+  }
   orgDepRunner.complete()
   await orgDepRunner.await()
 }
