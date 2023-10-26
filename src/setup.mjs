@@ -1,24 +1,17 @@
 import { DependencyRunner } from '@liquid-labs/dependency-runner'
 
-import { Organizations } from './resources/Organizations'
+import { Organization } from './resources/organization'
 
-const setup = ({ app, model, reporter }) => {
-  setupModel({ app })
-}
-
-const setupModel = ({ app, model }) => {
+const setup = ({ app, reporter }) => {
   app.ext.setupMethods.push({
     name : 'prepare org dependencies',
     deps : ['!'],
-    func : ({ app }) => { app.ext.orgSetupMethods = [] }
+    func : ({ app }) => { app.ext._liqOrgs = { orgSetupMethods : [] }}
   })
-
   app.ext.setupMethods.push({
     name : 'load orgs',
-    deps : ['load playground'],
     func : loadOrgs
   })
-
   app.ext.setupMethods.push({
     name : 'process org setup',
     deps : ['*'],
@@ -26,19 +19,35 @@ const setupModel = ({ app, model }) => {
   })
 }
 
-const loadOrgs = ({ model, reporter }) => {
-  model.bindSubModel('orgs', new Organizations({ model, reporter })) // .orgs
+const loadOrgs = ({ app, reporter }) => {
+  const orgsData = {}
+  app.ext._liqOrgs.orgs = orgsData
+  const { playgroundMonitor } = app.ext._liqProjects
+  for (const project of playgroundMonitor.listProjects()) {
+    const { pkgJSON, projectPath } = playgroundMonitor.getProjectData(project)
+
+    if (pkgJSON.liq?.packageType === 'org') {
+      loadOrg({ orgsData, pkgJSON, projectPath })
+    }
+  }
 }
 
-const processOrgSetup = async({ app, cache, model, reporter }) => {
-  const orgDepRunner = new DependencyRunner({ runArgs : { app, cache, model, reporter } })
-  for (const org of Object.values(model.orgs)) {
-    for (const orgSetupMethod of app.ext.orgSetupMethods) {
+const loadOrg = ({ orgsData, pkgJSON, projectPath }) => {
+  const { name: pkgName } = pkgJSON
+  const [orgName] = pkgName.split('/')
+
+  orgsData[orgName] = new Organization({ name : orgName, pkgName, projectPath })
+}
+
+const processOrgSetup = async({ app, cache, reporter }) => {
+  const orgDepRunner = new DependencyRunner({ runArgs : { app, cache, reporter } })
+  for (const org of Object.values(app.ext._liqOrgs.orgs)) {
+    for (const orgSetupMethod of app.ext._liqOrgs.orgSetupMethods) {
       const orgArgs = { org, orgKey : org.key }
       const mergedEntry = Object.assign({ args : orgArgs }, orgSetupMethod)
       orgDepRunner.enqueue(mergedEntry)
-    }
-  }
+     }
+   }
   orgDepRunner.complete()
   await orgDepRunner.await()
 }

@@ -1,7 +1,5 @@
 import * as fs from 'node:fs/promises'
 
-import { Organization } from '@liquid-labs/orgs-model'
-
 const help = {
   name        : 'Organization create',
   summary     : 'Creates a organization new organization locally.',
@@ -30,17 +28,13 @@ const parameters = [
 ]
 
 const func = ({ app }) => async(req, res) => {
-  const { commonName, legalName, localDataRoot, newOrgKey } = req.vars
-  const localRootDir = localDataRoot + '/orgs'
+  // commented out to pass lint until we rebuild 'create'
+  const { /* commonName, legalName, */localDataRoot /* newOrgKey */ } = req.vars
+  const localRootDir = localDataRoot + '/org'
 
   await fs.mkdir(localRootDir, { recursive : true })
 
-  /* const newOrg = */Organization.initializeOrganization({
-    commonName,
-    dataPath : localDataRoot,
-    legalName,
-    orgKey   : newOrgKey
-  })
+  // TODO
 }
 
 export { func, help, parameters, path, method }
