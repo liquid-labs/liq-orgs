@@ -3,9 +3,11 @@ import * as fsPath from 'node:path'
 
 import yaml from 'js-yaml'
 
+import { Model } from '@liquid-labs/resource-model'
+
 import { getSetting, requireSetting, updateSetting } from './lib/settings'
 
-const Organization = class {
+const Organization = class extends Model {
   #name
   #pkgName
   #projectPath
@@ -14,15 +16,17 @@ const Organization = class {
   /**
    * Parameters:
    *
-   * - `name`: (req, string) the name of the org, which follows the NPM scheme, starting with a '@'.
+   * - `name`: (req, string) the name of the org, which follows the NPM scheme, starting with a '@'; e.g., '@acme'.
    * - `pkgName`: (req, string) the name of the NPM package which contains the org data. I.e., the org's "home" repo.
+   *   This is conventionally something like '@acme/acme'.
    * - `projectPath`: (req, string) the local file system path to the project's data project indicated by `npmName`.
    */
   constructor({ name, pkgName, projectPath }) {
+    super()
+
     this.#name = name
     this.#pkgName = pkgName
     this.#projectPath = projectPath
-    this.ext = {}
 
     const settingsPath = fsPath.join(projectPath, 'data', 'org', 'settings.yaml')
     try {
