@@ -17,13 +17,13 @@ const Organization = class extends Model {
    * Parameters:
    *
    * - `name`: (req, string) the name of the org, which follows the NPM scheme, starting with a '@'; e.g., '@acme'.
-   * - `pkgName`: (req, string) the name of the NPM package which contains the org data. I.e., the org's "home" repo. 
+   * - `pkgName`: (req, string) the name of the NPM package which contains the org data. I.e., the org's "home" repo.
    *   This is conventionally something like '@acme/acme'.
    * - `projectPath`: (req, string) the local file system path to the project's data project indicated by `npmName`.
    */
   constructor({ name, pkgName, projectPath }) {
     super()
-    
+
     this.#name = name
     this.#pkgName = pkgName
     this.#projectPath = projectPath
