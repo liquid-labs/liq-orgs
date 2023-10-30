@@ -17,6 +17,8 @@ const setup = ({ app, reporter }) => {
     deps : ['*'],
     func : processOrgSetup
   })
+
+  setupPathResolvers({ app })
 }
 
 const loadOrgs = ({ app, reporter }) => {
@@ -50,6 +52,13 @@ const processOrgSetup = async({ app, cache, reporter }) => {
   }
   orgDepRunner.complete()
   await orgDepRunner.await()
+}
+
+const setupPathResolvers = ({ app }) => {
+  app.ext.pathResolvers.orgKey = {
+    bitReString    : '(?:@|%40)[a-z][a-zA-Z0-9-]*',
+    optionsFetcher : ({ app }) => Object.keys(app.ext._liqOrgs.orgs)
+  }
 }
 
 export { setup }
