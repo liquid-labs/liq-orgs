@@ -54,9 +54,16 @@ const processOrgSetup = async({ app, cache, reporter }) => {
   await orgDepRunner.await()
 }
 
+const orgNameREString = '(?:@|%40)[a-z][a-zA-Z0-9-]*'
+
 const setupPathResolvers = ({ app }) => {
+  app.ext.pathResolvers.newOrgKey = {
+    bitReString    : orgNameREString,
+    optionsFetcher : ({ currToken, newOrgKey }) => newOrgKey ? [newOrgKey] : []
+  }
+
   app.ext.pathResolvers.orgKey = {
-    bitReString    : '(?:@|%40)[a-z][a-zA-Z0-9-]*',
+    bitReString    : orgNameREString,
     optionsFetcher : ({ app }) => Object.keys(app.ext._liqOrgs.orgs)
   }
 }
