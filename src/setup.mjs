@@ -25,8 +25,8 @@ const loadOrgs = async({ app, reporter }) => {
   const orgsData = {}
   app.ext._liqOrgs.orgs = orgsData
 
-  for (const { packageJSON, projectPath } of 
-      Object.values(await app.ext._liqProjects.playgroundMonitor.getProjectsData())) {
+  for (const { packageJSON, projectPath } of
+    Object.values(await app.ext._liqProjects.playgroundMonitor.getProjectsData())) {
     if (packageJSON.liq?.packageType === 'org') {
       loadOrg({ orgsData, packageJSON, projectPath })
     }
