@@ -21,21 +21,20 @@ const setup = ({ app, reporter }) => {
   setupPathResolvers({ app })
 }
 
-const loadOrgs = ({ app, reporter }) => {
+const loadOrgs = async({ app, reporter }) => {
   const orgsData = {}
   app.ext._liqOrgs.orgs = orgsData
-  const { playgroundMonitor } = app.ext._liqProjects
-  for (const project of playgroundMonitor.listProjects()) {
-    const { pkgJSON, projectPath } = playgroundMonitor.getProjectData(project)
 
-    if (pkgJSON.liq?.packageType === 'org') {
-      loadOrg({ orgsData, pkgJSON, projectPath })
+  for (const { packageJSON, projectPath } of
+    Object.values(await app.ext._liqProjects.playgroundMonitor.getProjectsData())) {
+    if (packageJSON.liq?.packageType === 'org') {
+      loadOrg({ orgsData, packageJSON, projectPath })
     }
   }
 }
 
-const loadOrg = ({ orgsData, pkgJSON, projectPath }) => {
-  const { name: pkgName } = pkgJSON
+const loadOrg = ({ orgsData, packageJSON, projectPath }) => {
+  const { name: pkgName } = packageJSON
   const [orgName] = pkgName.split('/')
 
   orgsData[orgName] = new Organization({ name : orgName, pkgName, projectPath })
